@@ -1,0 +1,143 @@
+# ==============================================================================
+# OS Files
+# ==============================================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+ehthumbs_vista.db
+[Tt]humbs.db
+[Dd]esktop.ini
+
+# ==============================================================================
+# IDEs & Editors
+# ==============================================================================
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+.fleet/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.envrc
+
+# ==============================================================================
+# Python / Flask (Backend)
+# ==============================================================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Flask / Web
+instance/
+.webassets-cache
+
+# Database & Migrations
+*.sqlite3
+*.db
+alembic.ini.bak
+
+# Testing, Logs & Profiling
+*.log
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+*.cover
+*.pycover
+.hypothesis/
+.pytest_cache/
+pytestdebug.log
+
+# ==============================================================================
+# Node / React / Vite (Frontend)
+# ==============================================================================
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build / Production
+/frontend/dist/
+/frontend/dist-ssr/
+build/
+.vite/
+*.tsbuildinfo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ==============================================================================
+# Secrets & Environments (Proteção Rigorosa)
+# ==============================================================================
+# Ignora qualquer arquivo env, exceto o arquivo de exemplo
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Chaves, certificados e senhas
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+secret.txt
+id_rsa
+id_rsa.pub
+
+# Backups do banco de dados
+*.sql
+*.dump
+*.sql.gz
+*.tar.gz
+
+# Notas e arquivos locais 
+*.local
+local_settings.py
