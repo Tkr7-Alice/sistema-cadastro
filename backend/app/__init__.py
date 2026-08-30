@@ -9,7 +9,16 @@ from app.commands import registrar_comandos
 def create_app():
     app = Flask(__name__)
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = settings.database_url
+    database_url = settings.database_url
+
+    if database_url and database_url.startswith("postgresql://"):
+        database_url = database_url.replace(
+            "postgresql://",
+            "postgresql+psycopg://",
+            1,
+        )
+
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_url
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     app.config["JWT_SECRET_KEY"] = settings.jwt_secret
