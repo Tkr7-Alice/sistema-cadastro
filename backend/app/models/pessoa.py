@@ -29,6 +29,7 @@ class Pessoa(db.Model):
     nome_completo: Mapped[str] = mapped_column(
         String(150),
         nullable=False,
+        unique=True,
     )
 
     telefone: Mapped[str] = mapped_column(

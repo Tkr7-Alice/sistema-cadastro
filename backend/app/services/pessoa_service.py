@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.models.pessoa import Pessoa, StatusAprovacao
 from app.repositories.pessoa_repository import (
     buscar_por_id,
+    buscar_por_nome,
     buscar_por_nome_e_telefone,
     listar_pessoas,
 )
@@ -66,17 +67,14 @@ def criar_pessoa(
         )
 
     # Somente depois normaliza.
-    telefone = normalizar_telefone(telefone)
-
-    pessoa_existente = buscar_por_nome_e_telefone(
+    pessoa_existente = buscar_por_nome(
         db,
         nome_completo,
-        telefone,
     )
 
     if pessoa_existente is not None:
         raise ValueError(
-            "Já existe um cadastro com este nome e telefone."
+            "Já existe um cadastro com este nome."
         )
 
     pessoa = Pessoa(
@@ -244,10 +242,9 @@ def atualizar_pessoa(
         novo_telefone = normalizar_telefone(telefone)
 
     # Verifica duplicidade com os dados finais.
-    pessoa_existente = buscar_por_nome_e_telefone(
+    pessoa_existente = buscar_por_nome(
         db,
         novo_nome,
-        novo_telefone,
     )
 
     if (
@@ -255,7 +252,7 @@ def atualizar_pessoa(
         and pessoa_existente.id != pessoa.id
     ):
         raise ValueError(
-            "Já existe outro cadastro com este nome e telefone."
+            "Já existe outro cadastro com este nome."
         )
 
     pessoa.nome_completo = novo_nome

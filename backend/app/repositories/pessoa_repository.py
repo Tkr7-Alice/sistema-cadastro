@@ -10,6 +10,18 @@ def buscar_por_id(
     
     return db.get(Pessoa, pessoa_id)
 
+def buscar_por_nome(
+    db: Session,
+    nome_completo: str,
+) -> Pessoa | None:
+
+    stmt = (
+        select(Pessoa)
+        .where(Pessoa.nome_completo == nome_completo)
+    )
+
+    return db.scalar(stmt)
+
 def buscar_por_nome_e_telefone(
     db: Session,
     nome_completo: str,
