@@ -45,6 +45,13 @@ def create_app():
 
     registrar_comandos(app)
 
+    @app.get("/")
+    def root():
+        return {
+            "status": "ok",
+            "message": "API Sistema Cadastro funcionando",
+        }
+
     @app.get("/health")
     def health_check():
         return {
@@ -54,14 +61,20 @@ def create_app():
 
     @app.errorhandler(404)
     def not_found(error):
-        return jsonify({"detail": "Recurso não encontrado."}), 404
+        return jsonify({
+            "detail": "Recurso não encontrado."
+        }), 404
 
     @app.errorhandler(500)
     def internal_error(error):
-        return jsonify({"detail": "Erro interno do servidor."}), 500
+        return jsonify({
+            "detail": "Erro interno do servidor."
+        }), 500
 
     @app.errorhandler(405)
     def method_not_allowed(error):
-        return jsonify({"detail": "Método não permitido."}), 405
+        return jsonify({
+            "detail": "Método não permitido."
+        }), 405
 
     return app
