@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Lock, LogIn } from "lucide-react";
 import api from "../lib/api";
@@ -13,10 +14,11 @@ export function LoginPage() {
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState("");
 
-  if (isAuthenticated()) {
-    navigate("/admin", { replace: true });
-    return null;
-  }
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate("/admin", { replace: true });
+    }
+  }, [navigate]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -35,12 +37,17 @@ export function LoginPage() {
         senha,
       });
 
-      saveAuth(resposta.data.access_token, resposta.data.admin);
+      saveAuth(
+        resposta.data.access_token,
+        resposta.data.admin,
+      );
+
       navigate("/admin", { replace: true });
     } catch (error: any) {
       const detalhe =
         error?.response?.data?.detail ||
         "Não foi possível realizar o login.";
+
       setErro(detalhe);
     } finally {
       setCarregando(false);
@@ -55,17 +62,28 @@ export function LoginPage() {
         </div>
 
         <h1>Acesso administrativo</h1>
-        <p>Informe suas credenciais para acessar o painel.</p>
 
-        {erro && <div className="error-message">{erro}</div>}
+        <p>
+          Informe suas credenciais para acessar o painel.
+        </p>
+
+        {erro && (
+          <div className="error-message">
+            {erro}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} noValidate>
           <label htmlFor="email">E-mail</label>
+
           <input
             id="email"
             type="email"
             value={email}
-            onChange={(e) => { setEmail(e.target.value); setErro(""); }}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setErro("");
+            }}
             placeholder="admin@exemplo.com"
             autoComplete="email"
             disabled={carregando}
@@ -73,11 +91,15 @@ export function LoginPage() {
           />
 
           <label htmlFor="senha">Senha</label>
+
           <input
             id="senha"
             type="password"
             value={senha}
-            onChange={(e) => { setSenha(e.target.value); setErro(""); }}
+            onChange={(e) => {
+              setSenha(e.target.value);
+              setErro("");
+            }}
             placeholder="Sua senha"
             autoComplete="current-password"
             disabled={carregando}
@@ -87,10 +109,17 @@ export function LoginPage() {
           <button
             type="submit"
             className="primary-button"
-            disabled={carregando || !email.trim() || !senha}
+            disabled={
+              carregando ||
+              !email.trim() ||
+              !senha
+            }
           >
             <LogIn size={20} />
-            {carregando ? "Entrando..." : "Entrar"}
+
+            {carregando
+              ? "Entrando..."
+              : "Entrar"}
           </button>
         </form>
       </section>

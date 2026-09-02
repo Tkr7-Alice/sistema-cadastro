@@ -12,6 +12,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { AdminLayout } from "./pages/AdminLayout";
 import { AdminListPage } from "./pages/AdminListPage";
 import { AdminDetailPage } from "./pages/AdminDetailPage";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -26,7 +27,14 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
 
         {/* Admin */}
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<AdminListPage />} />
           <Route path="pessoas/:id" element={<AdminDetailPage />} />
         </Route>
