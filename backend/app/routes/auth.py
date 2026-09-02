@@ -24,6 +24,13 @@ def login():
     email = dados.get("email")
     senha = dados.get("senha")
 
+    if not isinstance(email, str) or not isinstance(senha, str):
+        return jsonify({
+            "detail": "Email e senha são obrigatórios."
+        }), 400
+
+    email = email.strip()
+
     if not email or not senha:
         return jsonify({
             "detail": "Email e senha são obrigatórios."

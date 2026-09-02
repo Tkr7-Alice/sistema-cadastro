@@ -11,7 +11,15 @@ class Settings:
     database_url = os.getenv("DATABASE_URL")
     jwt_secret = os.getenv("JWT_SECRET")
     jwt_algorithm = os.getenv("JWT_ALGORITHM", "HS256")
-    cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173")
+
+    cors_origins = [
+        origem.strip()
+        for origem in os.getenv(
+            "CORS_ORIGINS",
+            "http://localhost:5173",
+        ).split(",")
+        if origem.strip()
+    ]
 
     def validar(self) -> None:
         erros = []
@@ -25,6 +33,7 @@ class Settings:
         if erros:
             for erro in erros:
                 print(f"ERRO: {erro}", file=sys.stderr)
+
             sys.exit(1)
 
 
