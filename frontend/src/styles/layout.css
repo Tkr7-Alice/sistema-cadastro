@@ -1,0 +1,142 @@
+/* ============================================================
+   PUBLIC PAGES — LAYOUT
+   ============================================================ */
+
+.home-page,
+.page-container {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background:
+    radial-gradient(
+      circle at 0% 0%,
+      rgba(79, 70, 229, 0.12) 0,
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(124, 58, 237, 0.10) 0,
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(14, 165, 233, 0.08) 0,
+      transparent 45%
+    ),
+    var(--bg-main);
+}
+
+
+/* ============================================================
+   PUBLIC CARDS
+   ============================================================ */
+
+.home-card,
+.form-card {
+  width: 100%;
+  max-width: 480px;
+
+  padding: 36px;
+
+  background: var(--bg-card);
+
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: var(--radius-xl);
+
+  box-shadow: var(--shadow-lg);
+
+  position: relative;
+  overflow: hidden;
+}
+
+.home-card::before,
+.form-card::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 3px;
+
+  background: var(--gradient-primary);
+}
+
+.home-card {
+  text-align: center;
+}
+
+
+/* ============================================================
+   BRAND / FORM ICON
+   ============================================================ */
+
+.brand-icon,
+.form-icon {
+  width: 68px;
+  height: 68px;
+
+  margin: 0 auto 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--radius-lg);
+
+  background: var(--gradient-soft);
+
+  color: var(--primary);
+
+  border: 1px solid var(--primary-border);
+
+  box-shadow:
+    0 8px 20px rgba(79, 70, 229, 0.08);
+}
+
+
+/* ============================================================
+   PUBLIC TYPOGRAPHY
+   ============================================================ */
+
+.home-card h1,
+.form-card h1 {
+  margin: 0 0 12px;
+
+  color: var(--text-dark);
+
+  font-size: 29px;
+  line-height: 1.2;
+  font-weight: 750;
+
+  letter-spacing: -0.025em;
+}
+
+.home-card p,
+.form-card p {
+  margin: 0;
+
+  color: var(--text-muted);
+
+  line-height: 1.65;
+}
+
+
+/* ============================================================
+   HOME ACTIONS
+   ============================================================ */
+
+.home-actions {
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  margin-top: 30px;
+}

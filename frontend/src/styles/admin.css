@@ -1,0 +1,278 @@
+.admin-layout {
+  display: flex;
+
+  min-height: 100vh;
+
+  background: var(--bg-main);
+}
+
+.admin-sidebar {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  z-index: 100;
+
+  width: 260px;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  background: var(--gradient-sidebar);
+  color: var(--text-white-muted);
+
+  box-shadow:
+    8px 0 24px rgba(15, 23, 42, 0.08);
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  min-height: 72px;
+
+  padding: 20px 22px;
+
+  color: #ffffff;
+
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-brand svg {
+  width: 22px;
+  height: 22px;
+
+  flex-shrink: 0;
+
+  color: var(--primary-light);
+}
+
+.sidebar-nav {
+  flex: 1;
+
+  padding: 18px 12px;
+
+  overflow-y: auto;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.10);
+  border-radius: 999px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  width: 100%;
+
+  margin-bottom: 4px;
+
+  padding: 12px 14px;
+
+  border-radius: var(--radius-2xs);
+
+  color: #94a3b8;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.sidebar-link svg {
+  width: 18px;
+  height: 18px;
+
+  flex-shrink: 0;
+
+  opacity: 0.9;
+}
+
+.sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.06);
+
+  color: var(--text-white);
+
+  transform: translateX(2px);
+}
+
+.sidebar-link.active {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(79, 70, 229, 0.26),
+      rgba(124, 58, 237, 0.16)
+    );
+
+  color: #c7d2fe;
+
+  box-shadow:
+    inset 3px 0 0 var(--primary-light);
+}
+
+.sidebar-link.active svg {
+  color: var(--primary-light);
+}
+
+.sidebar-footer {
+  padding: 16px 14px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  margin-bottom: 12px;
+
+  padding: 0 4px;
+}
+
+.admin-name {
+  color: var(--text-white);
+
+  font-size: 14px;
+  font-weight: 700;
+
+  line-height: 1.4;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-email {
+  color: var(--text-slate);
+
+  font-size: 12px;
+  line-height: 1.4;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+
+  width: 100%;
+
+  min-height: 42px;
+
+  padding: 10px 14px;
+
+  border: 1px solid transparent;
+  border-radius: var(--radius-2xs);
+
+  background: rgba(255, 255, 255, 0.04);
+
+  color: #94a3b8;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.logout-button svg {
+  width: 17px;
+  height: 17px;
+
+  flex-shrink: 0;
+}
+
+.logout-button:hover {
+  background: rgba(239, 68, 68, 0.10);
+
+  border-color: rgba(239, 68, 68, 0.16);
+
+  color: #fca5a5;
+}
+
+.logout-button:active {
+  transform: translateY(1px);
+}
+
+.logout-button:focus-visible {
+  outline: 3px solid rgba(129, 140, 248, 0.20);
+  outline-offset: 2px;
+}
+
+.admin-content {
+  flex: 1;
+
+  width: calc(100% - 260px);
+
+  margin-left: 260px;
+
+  padding: 32px 40px;
+
+  min-height: 100vh;
+
+  background: var(--bg-main);
+}
+
+.admin-page {
+  width: 100%;
+  max-width: 1100px;
+
+  margin: 0 auto;
+}
+
+.admin-page-header {
+  margin-bottom: 24px;
+}
+
+.admin-page-header h1 {
+  margin-bottom: 6px;
+
+  color: var(--text-darkest);
+
+  font-size: 26px;
+  font-weight: 750;
+  line-height: 1.2;
+
+  letter-spacing: -0.025em;
+}
+
+.admin-page-header p {
+  color: var(--text-muted);
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.sidebar-link:focus-visible {
+  outline: 3px solid rgba(129, 140, 248, 0.22);
+  outline-offset: 2px;
+}

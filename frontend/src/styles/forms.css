@@ -1,0 +1,194 @@
+ /* ============================================================
+    FORMS
+    ============================================================ */
+
+.form-card h1 {
+  text-align: center;
+}
+
+.form-card > p {
+  text-align: center;
+}
+
+.form-icon {
+  margin-top: 20px;
+}
+
+/* ============================================================
+   FORM STRUCTURE
+   ============================================================ */
+
+form {
+  width: 100%;
+
+  margin-top: 30px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ============================================================
+   LABELS
+   ============================================================ */
+
+label {
+  margin-top: 8px;
+
+  color: var(--text-main);
+
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+
+  letter-spacing: -0.01em;
+}
+
+/* ============================================================
+   INPUTS
+   ============================================================ */
+
+input {
+  width: 100%;
+  min-height: 52px;
+
+  padding: 0 16px;
+
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-base);
+
+  outline: none;
+
+  background: var(--bg-card);
+  color: var(--text-main);
+
+  font-size: 15px;
+  line-height: 1.4;
+
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast);
+}
+
+input::placeholder {
+  color: var(--text-placeholder);
+}
+
+input:hover:not(:disabled) {
+  border-color: var(--border-hover);
+}
+
+input:focus {
+  border-color: var(--primary);
+
+  background: var(--bg-card);
+
+  box-shadow:
+    0 0 0 4px rgba(79, 70, 229, 0.10);
+}
+
+input:disabled {
+  background: var(--bg-alt);
+  color: var(--text-placeholder);
+
+  cursor: not-allowed;
+
+  opacity: 0.8;
+}
+
+/* ============================================================
+   BACK LINK
+   ============================================================ */
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--text-muted);
+
+  font-size: 14px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.back-link:hover {
+  color: var(--primary);
+
+  transform: translateX(-2px);
+}
+
+.back-link:focus-visible {
+  outline: 3px solid rgba(79, 70, 229, 0.18);
+  outline-offset: 3px;
+
+  border-radius: var(--radius-3xs);
+}
+
+/* ============================================================
+   FEEDBACK MESSAGES
+   ============================================================ */
+
+.success-message,
+.error-message {
+  margin-top: 18px;
+
+  padding: 14px 18px;
+
+  border-radius: var(--radius-xs);
+
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.success-message {
+  background: var(--success-bg);
+
+  border: 1px solid var(--success-border);
+
+  color: var(--success-text);
+}
+
+.error-message {
+  background: var(--danger-bg);
+
+  border: 1px solid var(--danger-border);
+
+  color: var(--danger-text);
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 480px) {
+  form {
+    margin-top: 24px;
+  }
+
+  input {
+    min-height: 50px;
+
+    padding: 0 14px;
+
+    font-size: 14px;
+  }
+
+  label {
+    font-size: 12px;
+  }
+
+  .success-message,
+  .error-message {
+    padding: 13px 14px;
+
+    font-size: 13px;
+  }
+}
