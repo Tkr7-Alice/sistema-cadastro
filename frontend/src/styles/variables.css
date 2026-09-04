@@ -1,0 +1,182 @@
+:root {
+  /* ============================================================
+     BRAND — VIVID INDIGO
+     ============================================================ */
+
+  --primary: #4f46e5;
+  --primary-dark: #4338ca;
+  --primary-darker: #3730a3;
+  --primary-light: #818cf8;
+  --primary-lighter: #eef2ff;
+  --primary-soft: #e0e7ff;
+  --primary-border: #c7d2fe;
+  --primary-text-light: #a5b4fc;
+
+  /* Gradients */
+
+  --gradient-primary: linear-gradient(
+    135deg,
+    #4f46e5 0%,
+    #6366f1 50%,
+    #7c3aed 100%
+  );
+
+  --gradient-primary-hover: linear-gradient(
+    135deg,
+    #4338ca 0%,
+    #4f46e5 50%,
+    #6d28d9 100%
+  );
+
+  --gradient-soft: linear-gradient(
+    135deg,
+    #eef2ff 0%,
+    #f5f3ff 100%
+  );
+
+  --gradient-sidebar: linear-gradient(
+    160deg,
+    #0f172a 0%,
+    #171a3a 55%,
+    #1e1b4b 100%
+  );
+
+
+  /* ============================================================
+     TEXT
+     ============================================================ */
+
+  --text-main: #172033;
+  --text-dark: #111827;
+  --text-darker: #1e293b;
+  --text-darkest: #0f172a;
+
+  --text-muted: #667085;
+  --text-slate: #64748b;
+  --text-gray: #6b7280;
+  --text-gray-light: #9ca3af;
+  --text-placeholder: #98a2b3;
+
+  --text-white-muted: #e2e8f0;
+  --text-white: #f1f5f9;
+
+
+  /* ============================================================
+     BACKGROUNDS
+     ============================================================ */
+
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-alt: #f1f5f9;
+  --bg-table-header: #f8fafc;
+
+  --bg-sidebar: #0f172a;
+
+  --bg-hover: #f8fafc;
+  --bg-selected: #eef2ff;
+  --bg-focus: #f5f3ff;
+
+
+  /* ============================================================
+     BORDERS
+     ============================================================ */
+
+  --border-light: #f3f4f6;
+  --border-main: #e5e7eb;
+  --border-input: #d9e0ea;
+  --border-hover: #d1d5db;
+  --border-focus: #818cf8;
+
+
+  /* ============================================================
+     SUCCESS
+     ============================================================ */
+
+  --success: #10b981;
+  --success-bg: #ecfdf5;
+  --success-border: #a7f3d0;
+  --success-text: #065f46;
+
+  --success-btn: #059669;
+  --success-btn-hover: #047857;
+
+
+  /* ============================================================
+     DANGER
+     ============================================================ */
+
+  --danger: #ef4444;
+  --danger-bg: #fef2f2;
+  --danger-bg-alt: #fff5f5;
+  --danger-border: #fecaca;
+  --danger-text: #991b1b;
+
+  --danger-btn: #dc2626;
+  --danger-btn-hover: #b91c1c;
+
+
+  /* ============================================================
+     WARNING
+     ============================================================ */
+
+  --warning: #f59e0b;
+  --warning-bg: #fffbeb;
+  --warning-border: #fde68a;
+  --warning-text: #92400e;
+
+
+  /* ============================================================
+     INFO
+     ============================================================ */
+
+  --info: #0ea5e9;
+  --info-bg: #f0f9ff;
+  --info-border: #bae6fd;
+  --info-text: #075985;
+
+
+  /* ============================================================
+     RADIUS
+     ============================================================ */
+
+  --radius-xl: 24px;
+  --radius-lg: 20px;
+  --radius-md: 16px;
+  --radius-sm: 14px;
+  --radius-base: 13px;
+  --radius-xs: 12px;
+  --radius-2xs: 10px;
+  --radius-3xs: 8px;
+
+
+  /* ============================================================
+     SHADOWS
+     ============================================================ */
+
+  --shadow-xs:
+    0 1px 2px rgba(15, 23, 42, 0.04);
+
+  --shadow-sm:
+    0 1px 3px rgba(15, 23, 42, 0.06),
+    0 1px 2px rgba(15, 23, 42, 0.04);
+
+  --shadow-md:
+    0 4px 12px rgba(15, 23, 42, 0.08),
+    0 2px 4px rgba(15, 23, 42, 0.04);
+
+  --shadow-lg:
+    0 12px 30px rgba(15, 23, 42, 0.10),
+    0 4px 8px rgba(15, 23, 42, 0.04);
+
+  --shadow-primary:
+    0 8px 20px rgba(79, 70, 229, 0.22);
+
+
+  /* ============================================================
+     TRANSITIONS
+     ============================================================ */
+
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease;
+}

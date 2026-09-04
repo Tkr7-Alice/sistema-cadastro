@@ -1,0 +1,252 @@
+/* ============================================================
+   TABLET / SMALL DESKTOP
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .admin-sidebar {
+    width: 220px;
+  }
+
+  .admin-main {
+    margin-left: 220px;
+  }
+
+  .admin-content {
+    padding: 24px;
+  }
+
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .data-table {
+    min-width: 700px;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    z-index: 1000;
+
+    width: 100%;
+    max-width: 100%;
+
+    height: auto;
+    max-height: 100vh;
+
+    overflow-y: auto;
+
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .admin-main {
+    width: 100%;
+
+    margin-left: 0;
+    padding-top: 70px;
+  }
+
+  .admin-content {
+    width: 100%;
+    padding: 20px 16px;
+  }
+
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .filter-bar {
+    width: 100%;
+
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 12px;
+  }
+
+  .filter-bar .form-group {
+    width: 100%;
+  }
+
+  .filter-actions {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .filter-actions button {
+    width: 100%;
+  }
+
+  .table-container {
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    border-radius: var(--radius-md);
+
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .data-table {
+    min-width: 680px;
+  }
+
+  .public-container {
+    width: 100%;
+    max-width: 100%;
+
+    padding: 16px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .result-card {
+    padding: 16px;
+  }
+
+  .button-group {
+    width: 100%;
+
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .button-group button {
+    width: 100%;
+  }
+
+  .action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+  .action-buttons button {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid var(--border-main);
+    border-radius: var(--radius-2xs);
+    background: var(--bg-card);
+    color: var(--text-slate);
+    transition:
+      background var(--transition-fast),
+      border-color var(--transition-fast),
+      color var(--transition-fast),
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+
+  .action-buttons button:hover {
+    background: var(--primary-lighter);
+    border-color: var(--primary-border);
+    color: var(--primary);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-xs);
+  }
+
+  .action-buttons button:active {
+    transform: translateY(0);
+  }
+
+  .action-buttons button svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .action-buttons button:nth-child(2):hover {
+    background: var(--success-bg);
+    border-color: var(--success-border);
+    color: var(--success-btn);
+  }
+
+  .action-buttons button:nth-child(3):hover {
+    background: var(--danger-bg);
+    border-color: var(--danger-border);
+    color: var(--danger-btn);
+  }
+
+  .action-buttons button:focus-visible {
+    outline: 3px solid rgba(79, 70, 229, 0.16);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .action-buttons {
+      justify-content: flex-start;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+    .action-buttons {
+      justify-content: flex-start;
+    }
+  }
+  
+@media (max-width: 480px) {
+  html {
+    font-size: 15px;
+  }
+
+  .admin-content {
+    padding: 16px 12px;
+  }
+
+  .public-container {
+    padding: 12px;
+  }
+
+  .card,
+  .form-card {
+    padding: 20px 16px;
+  }
+
+  .button-group,
+  .action-buttons {
+    gap: 8px;
+  }
+
+  .data-table {
+    min-width: 620px;
+  }
+}
+
+@media (max-width: 360px) {
+  .admin-content {
+    padding: 12px 10px;
+  }
+
+  .public-container {
+    padding: 10px;
+  }
+
+  .card,
+  .form-card {
+    padding: 18px 14px;
+  }
+
+  .data-table {
+    min-width: 600px;
+  }
+}
