@@ -35,25 +35,34 @@ export function AdminLayout() {
           <Link
             to="/admin"
             className={`sidebar-link${
-              location.pathname === "/admin" || location.pathname.startsWith("/admin/pessoas")
+              location.pathname === "/admin" ||
+              location.pathname.startsWith("/admin/pessoas")
                 ? " active"
                 : ""
             }`}
           >
             <Users size={18} />
-            Cadastros
+            <span>Cadastros</span>
           </Link>
         </nav>
 
         <div className="sidebar-footer">
           <div className="admin-info">
-            <span className="admin-name">{admin?.nome || "Admin"}</span>
-            <span className="admin-email">{admin?.email || ""}</span>
+            <span className="admin-name">
+              {admin?.nome || "Admin"}
+            </span>
+
+            <span className="admin-email">
+              {admin?.email || ""}
+            </span>
           </div>
 
-          <button onClick={handleLogout} className="logout-button">
+          <button
+            onClick={handleLogout}
+            className="logout-button"
+          >
             <LogOut size={18} />
-            Sair
+            <span>Sair</span>
           </button>
         </div>
       </aside>
