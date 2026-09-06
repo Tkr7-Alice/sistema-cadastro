@@ -236,7 +236,7 @@ export function AdminDetailPage() {
         ) : (
           <div className="detail-fields">
             <div className="detail-field">
-              <span className="detail-label">Nome completo</span>
+              <span className="detail-label">Nome completo:</span>
               <span className="detail-value">{pessoa.nome_completo}</span>
             </div>
             <div className="detail-field">
@@ -244,7 +244,7 @@ export function AdminDetailPage() {
               <span className="detail-value">{pessoa.telefone}</span>
             </div>
             <div className="detail-field">
-              <span className="detail-label">Status do cadastro</span>
+              <span className="detail-label">Status do cadastro:</span>
               <span className="detail-value">{pessoa.status_cadastro}</span>
             </div>
             <div className="detail-field">
@@ -252,7 +252,7 @@ export function AdminDetailPage() {
               <span className="detail-value">{formatarData(pessoa.created_at)}</span>
             </div>
             <div className="detail-field">
-              <span className="detail-label">Última atualização</span>
+              <span className="detail-label">Última atualização:</span>
               <span className="detail-value">{formatarData(pessoa.updated_at)}</span>
             </div>
             {pessoa.data_entrevista && (
