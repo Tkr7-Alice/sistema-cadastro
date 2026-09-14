@@ -48,10 +48,19 @@ def cadastrar_pessoa():
             nome_completo,
             telefone,
         )
+
     except ValueError as exc:
         return jsonify({
             "detail": str(exc)
         }), 409
+
+    except Exception:
+        import logging
+        logging.exception("ERRO AO CRIAR PESSOA")
+
+        return jsonify({
+            "detail": "Erro interno do servidor."
+        }), 500
 
     return jsonify({
         "id": pessoa.id,
