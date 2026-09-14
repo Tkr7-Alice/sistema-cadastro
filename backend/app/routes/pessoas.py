@@ -27,6 +27,21 @@ pessoas_bp = Blueprint(
 
 @pessoas_bp.post("")
 def cadastrar_pessoa():
+    import logging
+
+    logging.warning(">>> ENTROU NA ROTA POST /api/pessoas")
+
+    dados = request.get_json(silent=True)
+
+    logging.warning(f">>> DADOS RECEBIDOS: {dados}")
+
+    if not dados:
+        return jsonify({
+            "detail": "Dados da pessoa são obrigatórios."
+        }), 400
+
+@pessoas_bp.post("")
+def cadastrar_pessoa():
     dados = request.get_json(silent=True)
 
     if not dados:
