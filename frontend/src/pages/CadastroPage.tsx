@@ -162,7 +162,7 @@ export function CadastroPage() {
     try {
       setCarregando(true);
 
-      const resposta = await api.post("/api/pessoas", {
+      await api.post("/api/pessoas", {
         nome_completo: nome,
         telefone: telefoneNormalizado,
       });
@@ -170,7 +170,7 @@ export function CadastroPage() {
       setSucesso(true);
 
       setMensagem(
-        `Cadastro realizado com sucesso. Número do cadastro: ${resposta.data.id}.`,
+        "🎉 Cadastro realizado com sucesso! Seus dados foram enviados.",
       );
 
       setNomeCompleto("");
