@@ -42,6 +42,7 @@ export function AdminListPage() {
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState("");
   const [filtro, setFiltro] = useState<FiltroStatus>("TODOS");
+  const [pesquisaNome, setPesquisaNome] = useState("");
   const [acaoCarregando, setAcaoCarregando] = useState<number | null>(null);
 
   async function carregarPessoas() {
@@ -87,11 +88,17 @@ export function AdminListPage() {
     }
   }
 
-  const pessoasFiltradas =
-    filtro === "TODOS"
-      ? pessoas
-      : pessoas.filter((p) => p.status_aprovacao === filtro);
+  const pessoasFiltradas = pessoas.filter((pessoa) => {
+    const correspondeStatus =
+      filtro === "TODOS" ||
+      pessoa.status_aprovacao === filtro;
 
+    const correspondeNome = pessoa.nome_completo
+      .toLocaleLowerCase("pt-BR")
+      .includes(pesquisaNome.trim().toLocaleLowerCase("pt-BR"));
+
+    return correspondeStatus && correspondeNome;
+  });
   const contadores = {
     TODOS: pessoas.length,
     AGUARDANDO: pessoas.filter((p) => p.status_aprovacao === "AGUARDANDO").length,
@@ -107,6 +114,16 @@ export function AdminListPage() {
       </div>
 
       {erro && <div className="error-message">{erro}</div>}
+
+      <div className="admin-search">
+        <input
+          type="text"
+          placeholder="Pesquisar por nome..."
+          value={pesquisaNome}
+          onChange={(event) => setPesquisaNome(event.target.value)}
+          aria-label="Pesquisar cadastro por nome"
+        />
+      </div>
 
       <div className="filter-bar">
         <Filter size={16} />
