@@ -25,7 +25,7 @@ def validar_nome(nome: str) -> str:
     if not isinstance(nome, str):
         raise ValueError("Nome completo inválido.")
 
-    nome = " ".join(nome.strip().split())
+    nome = " ".join(nome.strip().split()).upper()
 
     if not nome:
         raise ValueError("Nome completo é obrigatório.")

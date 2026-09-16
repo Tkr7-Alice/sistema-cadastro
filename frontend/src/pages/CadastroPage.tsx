@@ -156,7 +156,7 @@ export function CadastroPage() {
       return;
     }
 
-    const nome = nomeCompleto.trim();
+    const nome = nomeCompleto.trim().toUpperCase();
     const telefoneNormalizado = normalizarTelefone(telefone);
 
     try {
@@ -239,7 +239,7 @@ export function CadastroPage() {
             type="text"
             value={nomeCompleto}
             onChange={(event) => {
-              setNomeCompleto(event.target.value);
+              setNomeCompleto(event.target.value.toUpperCase());
               limparErro();
             }}
             placeholder="Digite seu nome completo"

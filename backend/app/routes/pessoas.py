@@ -93,11 +93,17 @@ def consultar_status():
             "detail": "Nome completo e telefone são obrigatórios."
         }), 400
 
-    pessoa = consultar_pessoa(
-        db.session,
-        nome_completo,
-        telefone,
-    )
+    try:
+        pessoa = consultar_pessoa(
+            db.session,
+            nome_completo,
+            telefone,
+        )
+
+    except ValueError as exc:
+        return jsonify({
+            "detail": str(exc)
+        }), 400
 
     if pessoa is None:
         return jsonify({
