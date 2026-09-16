@@ -32,6 +32,13 @@ class Pessoa(db.Model):
         unique=True,
     )
 
+    nome_normalizado: Mapped[str] = mapped_column(
+        String(150),
+        nullable=False,
+        unique=True,
+        index=True,
+    )
+
     telefone: Mapped[str] = mapped_column(
         String(20),
         nullable=False,

@@ -1,3 +1,4 @@
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.models.pessoa import Pessoa, StatusAprovacao
@@ -7,11 +8,11 @@ from app.repositories.pessoa_repository import (
     buscar_por_nome_e_telefone,
     listar_pessoas,
 )
+from app.utils.nome import normalizar_nome
 from app.utils.telefone import (
     normalizar_telefone,
     validar_telefone,
 )
-
 
 NOME_MINIMO = 3
 NOME_MAXIMO = 150
@@ -46,7 +47,6 @@ def validar_nome(nome: str) -> str:
 
     return nome
 
-
 def criar_pessoa(
     db: Session,
     nome_completo: str,
@@ -54,22 +54,23 @@ def criar_pessoa(
 ) -> Pessoa:
 
     nome_completo = validar_nome(nome_completo)
+    nome_normalizado = normalizar_nome(nome_completo)
 
     if not isinstance(telefone, str):
         raise ValueError("Telefone inválido.")
 
     telefone = telefone.strip()
 
-    # Primeiro valida a entrada original.
     if not validar_telefone(telefone):
         raise ValueError(
             "Telefone inválido. Informe um telefone brasileiro com DDD."
         )
 
-    # Somente depois normaliza.
+    telefone = normalizar_telefone(telefone)
+
     pessoa_existente = buscar_por_nome(
         db,
-        nome_completo,
+        nome_normalizado,
     )
 
     if pessoa_existente is not None:
@@ -79,6 +80,7 @@ def criar_pessoa(
 
     pessoa = Pessoa(
         nome_completo=nome_completo,
+        nome_normalizado=nome_normalizado,
         telefone=telefone,
     )
 
@@ -86,12 +88,18 @@ def criar_pessoa(
         db.add(pessoa)
         db.commit()
         db.refresh(pessoa)
+
+    except IntegrityError:
+        db.rollback()
+        raise ValueError(
+            "Já existe um cadastro com este nome."
+        )
+
     except Exception:
         db.rollback()
         raise
 
     return pessoa
-
 
 def consultar_pessoa(
     db: Session,
@@ -100,6 +108,7 @@ def consultar_pessoa(
 ) -> Pessoa | None:
 
     nome_completo = validar_nome(nome_completo)
+    nome_normalizado = normalizar_nome(nome_completo)
 
     if not isinstance(telefone, str):
         raise ValueError("Telefone inválido.")
@@ -115,10 +124,9 @@ def consultar_pessoa(
 
     return buscar_por_nome_e_telefone(
         db,
-        nome_completo,
+        nome_normalizado,
         telefone,
     )
-
 
 def listar_todas_pessoas(
     db: Session,
@@ -145,11 +153,9 @@ def aprovar_pessoa(
     # ============================================================
     # REVALIDAÇÃO DE SEGURANÇA
     # ============================================================
-    # Nunca confiamos somente na validação feita no cadastro.
-    # Os dados podem ter sido alterados posteriormente através
-    # da API, banco de dados ou outra operação administrativa.
 
     nome_validado = validar_nome(pessoa.nome_completo)
+    nome_normalizado = normalizar_nome(nome_validado)
 
     if not isinstance(pessoa.telefone, str):
         raise ValueError(
@@ -167,15 +173,23 @@ def aprovar_pessoa(
 
     telefone = normalizar_telefone(telefone)
 
-    # Garante que o telefone armazenado esteja normalizado.
+    # Garante que os dados armazenados estejam normalizados.
     pessoa.nome_completo = nome_validado
+    pessoa.nome_normalizado = nome_normalizado
     pessoa.telefone = telefone
-
     pessoa.status_aprovacao = StatusAprovacao.APROVADO
 
     try:
         db.commit()
         db.refresh(pessoa)
+
+    except IntegrityError:
+        db.rollback()
+        raise ValueError(
+            "Não foi possível aprovar este cadastro porque "
+            "já existe outro cadastro com este nome."
+        )
+
     except Exception:
         db.rollback()
         raise
@@ -202,6 +216,7 @@ def nao_aprovar_pessoa(
     try:
         db.commit()
         db.refresh(pessoa)
+
     except Exception:
         db.rollback()
         raise
@@ -223,9 +238,11 @@ def atualizar_pessoa(
 
     novo_nome = pessoa.nome_completo
     novo_telefone = pessoa.telefone
+    novo_nome_normalizado = pessoa.nome_normalizado
 
     if nome_completo is not None:
         novo_nome = validar_nome(nome_completo)
+        novo_nome_normalizado = normalizar_nome(novo_nome)
 
     if telefone is not None:
 
@@ -244,7 +261,7 @@ def atualizar_pessoa(
     # Verifica duplicidade com os dados finais.
     pessoa_existente = buscar_por_nome(
         db,
-        novo_nome,
+        novo_nome_normalizado,
     )
 
     if (
@@ -256,11 +273,19 @@ def atualizar_pessoa(
         )
 
     pessoa.nome_completo = novo_nome
+    pessoa.nome_normalizado = novo_nome_normalizado
     pessoa.telefone = novo_telefone
 
     try:
         db.commit()
         db.refresh(pessoa)
+
+    except IntegrityError:
+        db.rollback()
+        raise ValueError(
+            "Já existe outro cadastro com este nome."
+        )
+
     except Exception:
         db.rollback()
         raise
