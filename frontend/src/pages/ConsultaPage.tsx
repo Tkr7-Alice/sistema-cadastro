@@ -1,41 +1,76 @@
 import { useState } from "react";
+
 import type { FormEvent } from "react";
-import { ArrowLeft, Search, CheckCircle, Clock, XCircle } from "lucide-react";
+
+import {
+  ArrowLeft,
+  Search,
+  CheckCircle,
+  Clock,
+  XCircle,
+} from "lucide-react";
+
 import { Link } from "react-router-dom";
+
 import api from "../lib/api";
+
+import {
+  formatarTelefone,
+  normalizarTelefone,
+} from "../utils/telefone";
+
+import {
+  validarFormulario,
+} from "../utils/validacaoFormulario";
 
 type ResultadoConsulta = {
   nome_completo: string;
-  status_aprovacao: "AGUARDANDO" | "APROVADO" | "NAO_APROVADO";
+  status_aprovacao:
+    | "AGUARDANDO"
+    | "APROVADO"
+    | "NAO_APROVADO";
 };
 
 export function ConsultaPage() {
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [resultado, setResultado] = useState<ResultadoConsulta | null>(null);
+
+  const [resultado, setResultado] =
+    useState<ResultadoConsulta | null>(null);
+
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState("");
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(
+    event: FormEvent<HTMLFormElement>,
+  ) {
     event.preventDefault();
 
     setErro("");
     setResultado(null);
 
-    if (!nomeCompleto.trim() || !telefone.trim()) {
-      setErro("Preencha nome completo e telefone.");
+    const erroValidacao = validarFormulario(
+      nomeCompleto,
+      telefone,
+    );
+
+    if (erroValidacao) {
+      setErro(erroValidacao);
       return;
     }
 
     try {
       setCarregando(true);
 
-      const resposta = await api.get("/api/pessoas/consulta", {
-        params: {
-          nome_completo: nomeCompleto.trim(),
-          telefone: telefone.trim(),
+      const resposta = await api.get(
+        "/api/pessoas/consulta",
+        {
+          params: {
+            nome_completo: nomeCompleto.trim(),
+            telefone: normalizarTelefone(telefone),
+          },
         },
-      });
+      );
 
       setResultado(resposta.data);
     } catch (error: any) {
@@ -54,32 +89,40 @@ export function ConsultaPage() {
       return null;
     }
 
-    if (resultado.status_aprovacao === "APROVADO") {
+    if (
+      resultado.status_aprovacao === "APROVADO"
+    ) {
       return (
         <div className="result-card approved">
           <CheckCircle size={32} />
 
           <div>
-            <strong>Cadastro aprovado</strong>
+            <strong>
+              Cadastro aprovado
+            </strong>
+
             <p>
-              O cadastro de <strong>{resultado.nome_completo}</strong> foi
-              aprovado.
+              Seu cadastro foi aprovado com sucesso.
             </p>
           </div>
         </div>
       );
     }
 
-    if (resultado.status_aprovacao === "NAO_APROVADO") {
+    if (
+      resultado.status_aprovacao === "NAO_APROVADO"
+    ) {
       return (
         <div className="result-card rejected">
           <XCircle size={32} />
 
           <div>
-            <strong>Cadastro não aprovado</strong>
+            <strong>
+              Cadastro não aprovado
+            </strong>
+
             <p>
-              O cadastro de <strong>{resultado.nome_completo}</strong> não foi
-              aprovado.
+              Seu cadastro não foi aprovado.
             </p>
           </div>
         </div>
@@ -91,20 +134,29 @@ export function ConsultaPage() {
         <Clock size={32} />
 
         <div>
-          <strong>Cadastro aguardando análise</strong>
+          <strong>
+            Cadastro aguardando análise
+          </strong>
+
           <p>
-            O cadastro de <strong>{resultado.nome_completo}</strong> está
-            aguardando análise.
+            Seu cadastro está aguardando análise.
           </p>
         </div>
       </div>
     );
   }
 
+  const formularioValido =
+    validarFormulario(nomeCompleto, telefone) === null &&
+    !carregando;
+
   return (
     <main className="page-container">
       <section className="form-card">
-        <Link to="/" className="back-link">
+        <Link
+          to="/"
+          className="back-link"
+        >
           <ArrowLeft size={18} />
           Voltar
         </Link>
@@ -120,9 +172,16 @@ export function ConsultaPage() {
           o status do seu cadastro.
         </p>
 
-        {erro && <div className="error-message">{erro}</div>}
+        {erro && (
+          <div className="error-message">
+            {erro}
+          </div>
+        )}
 
-        <form onSubmit={handleSubmit}>
+        <form
+          onSubmit={handleSubmit}
+          noValidate
+        >
           <label htmlFor="nome">
             Nome completo
           </label>
@@ -131,9 +190,17 @@ export function ConsultaPage() {
             id="nome"
             type="text"
             value={nomeCompleto}
-            onChange={(event) => setNomeCompleto(event.target.value)}
+            onChange={(event) => {
+              setNomeCompleto(
+                event.target.value.toUpperCase(),
+              );
+
+              setErro("");
+              setResultado(null);
+            }}
             placeholder="Digite seu nome completo"
             autoComplete="name"
+            maxLength={150}
             disabled={carregando}
             required
           />
@@ -146,9 +213,20 @@ export function ConsultaPage() {
             id="telefone"
             type="tel"
             value={telefone}
-            onChange={(event) => setTelefone(event.target.value)}
+            onChange={(event) => {
+              setTelefone(
+                formatarTelefone(
+                  event.target.value,
+                ),
+              );
+
+              setErro("");
+              setResultado(null);
+            }}
             placeholder="(00) 00000-0000"
             autoComplete="tel"
+            inputMode="numeric"
+            maxLength={15}
             disabled={carregando}
             required
           />
@@ -156,10 +234,13 @@ export function ConsultaPage() {
           <button
             type="submit"
             className="primary-button"
-            disabled={carregando}
+            disabled={!formularioValido}
           >
             <Search size={20} />
-            {carregando ? "Consultando..." : "Consultar"}
+
+            {carregando
+              ? "Consultando..."
+              : "Consultar"}
           </button>
         </form>
 
